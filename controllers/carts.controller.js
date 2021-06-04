@@ -4,7 +4,7 @@ exports.getUsersCart = async (req, res) => {
   const { userId } = req;
 
   try {
-    const cart = await Cart.find({ userId }).populate({
+    const cart = await Cart.findOne({ userId }).populate({
       path: "products",
       populate: {
         path: "productId",
@@ -20,7 +20,6 @@ exports.getUsersCart = async (req, res) => {
 exports.putUsersCartInRequest = async (req, res, next, cartId) => {
   try {
     const cart = await Cart.findById(cartId);
-    console.log(cart);
     req.cart = cart;
     next();
   } catch (err) {
