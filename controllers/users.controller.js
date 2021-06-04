@@ -4,6 +4,26 @@ const { Wishlist } = require("../models/wishlist.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+module.exports.checkIfUserExists = async (req, res, next) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email.toLowerCase() });
+
+    if (user) {
+      return res.status(200).json({
+        success: false,
+        errorMessage:
+          "A user with the specified email already exists. Please login instead",
+      });
+    }
+
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, errorMessage: err.message });
+  }
+};
+
 exports.signUpUser = async (req, res) => {
   const user = req.body;
 
@@ -11,19 +31,22 @@ exports.signUpUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
 
-    const newUser = await User.create(user);
+    const newUser = await User.create({
+      email: user.email.toLowerCase(),
+      password: user.password,
+    });
 
-    await Cart.create({
+    const userCart = await Cart.create({
       userId: newUser._id,
       products: [],
     });
 
-    await Wishlist.create({
+    const userWishlist = await Wishlist.create({
       userId: newUser._id,
       products: [],
     });
 
-    res.status(201).json({ success: true, newUser });
+    res.status(201).json({ success: true, newUser, userCart, userWishlist });
   } catch (err) {
     res.status(500).json({ success: false, errorMessage: err.message });
   }
