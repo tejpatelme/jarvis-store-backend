@@ -19,9 +19,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/products", productsRouter);
-app.use("/cart", cartsRouter);
-app.use("/user", usersRouter);
-app.use("/wishlist", wishlistsRouter);
+app.use("/carts", cartsRouter);
+app.use("/users", usersRouter);
+app.use("/wishlists", wishlistsRouter);
 
 app.get("/", (req, res) =>
   res.send("API for Jarvis Store ecommerce application.")
