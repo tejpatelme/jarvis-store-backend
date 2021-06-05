@@ -32,14 +32,10 @@ const validatePassword = (req, res, next) => {
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
 
-  try {
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    req.userId = decodedToken.userId;
+  const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+  req.userId = decodedToken.userId;
 
-    next();
-  } catch (err) {
-    res.status(401).json({ success: false, errorMessage: err.message });
-  }
+  next();
 };
 
 module.exports = { validateEmail, validatePassword, verifyToken };

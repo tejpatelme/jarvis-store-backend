@@ -7,15 +7,20 @@ const {
 const {
   validateEmail,
   validatePassword,
-  verifyToken,
+  asyncHandler,
 } = require("../middlewares");
 
 const router = express.Router();
 
 router
   .route("/signup")
-  .post(validateEmail, validatePassword, checkIfUserExists, signUpUser);
+  .post(
+    validateEmail,
+    validatePassword,
+    asyncHandler(checkIfUserExists),
+    asyncHandler(signUpUser)
+  );
 
-router.route("/login").post(logInUser);
+router.route("/login").post(asyncHandler(logInUser));
 
 module.exports = router;

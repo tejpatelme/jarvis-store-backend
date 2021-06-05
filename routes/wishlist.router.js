@@ -1,5 +1,9 @@
 const express = require("express");
-const { verifyToken } = require("../middlewares");
+const {
+  verifyToken,
+  asyncHandler,
+  paramAsyncHandler,
+} = require("../middlewares");
 const {
   getUsersWishlist,
   putUsersWishlistInRequest,
@@ -8,10 +12,17 @@ const {
 
 const router = express.Router();
 
-router.param("wishlistId", putUsersWishlistInRequest);
+router.param("wishlistId", paramAsyncHandler(putUsersWishlistInRequest));
 
-router.route("/").get(verifyToken, getUsersWishlist);
+router
+  .route("/")
+  .get(asyncHandler(verifyToken), asyncHandler(getUsersWishlist));
 
-router.route("/:wishlistId").post(verifyToken, addOrRemoveProductFromWishlist);
+router
+  .route("/:wishlistId")
+  .post(
+    asyncHandler(verifyToken),
+    asyncHandler(addOrRemoveProductFromWishlist)
+  );
 
 module.exports = router;
