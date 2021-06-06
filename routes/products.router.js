@@ -1,35 +1,17 @@
 const express = require("express");
-const { Product } = require("../models/product.model");
-const fakeProducts = require("../data/products");
+const {
+  seedDatabase,
+  getProducts,
+  getSingleProduct,
+} = require("../controllers/products.controller");
+const { asyncHandler } = require("../middlewares");
 
 const router = express.Router();
 
-router.route("/seed").post(async (req, res) => {
-  try {
-    const products = await Product.create(fakeProducts);
-    res.json({ success: true, products });
-  } catch (err) {
-    res.status(500).json({ success: false, errorMessage: error.message });
-  }
-});
+router.route("/seed").post(asyncHandler(seedDatabase));
 
-router.route("/").get(async (req, res) => {
-  try {
-    const products = await Product.find({});
-    res.json({ success: true, products });
-  } catch (err) {
-    res.status(500).json({ success: false, errorMessage: err.message });
-  }
-});
+router.route("/").get(asyncHandler(getProducts));
 
-router.route("/:productId").get(async (req, res) => {
-  const { productId } = req.params;
-  try {
-    const product = await Product.findById(productId);
-    res.json({ success: true, product });
-  } catch (err) {
-    res.status(500).json({ success: false, errorMessage: err.message });
-  }
-});
+router.route("/:productId").get(asyncHandler(getSingleProduct));
 
 module.exports = router;
