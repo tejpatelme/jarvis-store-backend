@@ -8,13 +8,10 @@ module.exports.getUsersWishlist = async (req, res) => {
   res.status(200).json({ success: true, wishlist });
 };
 
-module.exports.putUsersWishlistInRequest = async (
-  req,
-  res,
-  next,
-  wishlistId
-) => {
-  const wishlist = await Wishlist.findById(wishlistId);
+module.exports.putUsersWishlistInRequest = async (req, res, next) => {
+  const { userId } = req;
+
+  const wishlist = await Wishlist.findOne({ userId });
 
   req.wishlist = wishlist;
   next();

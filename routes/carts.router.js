@@ -7,32 +7,28 @@ const {
   decreaseProductQuantity,
   removeProductFromCart,
 } = require("../controllers/carts.controller");
-const {
-  asyncHandler,
-  paramAsyncHandler,
-  verifyToken,
-} = require("../middlewares");
+const { asyncHandler, verifyToken } = require("../middlewares");
 
 const router = express.Router();
 
-router.param("cartId", paramAsyncHandler(putUsersCartInRequest));
+router.use(asyncHandler(verifyToken), asyncHandler(putUsersCartInRequest));
 
 router.route("/").get(asyncHandler(verifyToken), asyncHandler(getUsersCart));
 
 router
-  .route("/add-to-cart/:cartId")
+  .route("/add-to-cart")
   .post(asyncHandler(verifyToken), asyncHandler(addProductToCart));
 
 router
-  .route("/increase-product-quantity/:cartId")
+  .route("/increase-product-quantity")
   .post(asyncHandler(verifyToken), asyncHandler(increaseProductQuantity));
 
 router
-  .route("/decrease-product-quantity/:cartId")
+  .route("/decrease-product-quantity")
   .post(asyncHandler(verifyToken), asyncHandler(decreaseProductQuantity));
 
 router
-  .route("/remove-product/:cartId")
+  .route("/remove-product")
   .post(asyncHandler(verifyToken), asyncHandler(removeProductFromCart));
 
 module.exports = router;

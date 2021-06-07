@@ -3,7 +3,7 @@ const { Cart } = require("../models/cart.model");
 exports.getUsersCart = async (req, res) => {
   const { userId } = req;
 
-  const cart = await Cart.findOne({ userId }).populate({
+  let cart = await Cart.findOne({ userId }).populate({
     path: "products",
     populate: {
       path: "productId",
@@ -13,8 +13,10 @@ exports.getUsersCart = async (req, res) => {
   res.status(200).json({ success: true, cart });
 };
 
-exports.putUsersCartInRequest = async (req, res, next, cartId) => {
-  const cart = await Cart.findById(cartId);
+exports.putUsersCartInRequest = async (req, res, next) => {
+  const { userId } = req;
+  const cart = await Cart.findOne({ userId });
+
   req.cart = cart;
   next();
 };
@@ -28,9 +30,9 @@ exports.addProductToCart = async (req, res) => {
     qty: 1,
   });
 
-  await cart.save();
+  const updatedCart = await cart.save();
 
-  res.json({ success: true });
+  res.json({ success: true, updatedCart });
 };
 
 exports.increaseProductQuantity = async (req, res) => {
