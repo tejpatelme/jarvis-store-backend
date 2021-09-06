@@ -188,4 +188,4 @@ const products = [
   },
 ];
 
-module.exports = fakeProducts;
+module.exports = products;
