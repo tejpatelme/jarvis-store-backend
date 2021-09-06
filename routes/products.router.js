@@ -8,7 +8,7 @@ const { asyncHandler } = require("../middlewares");
 
 const router = express.Router();
 
-router.route("/seed").post(asyncHandler(seedDatabase));
+// router.route("/seed").post(asyncHandler(seedDatabase));
 
 router.route("/").get(asyncHandler(getProducts));
 
