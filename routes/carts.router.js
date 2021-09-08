@@ -6,6 +6,7 @@ const {
   increaseProductQuantity,
   decreaseProductQuantity,
   removeProductFromCart,
+  createOrder,
 } = require("../controllers/carts.controller");
 const { asyncHandler, verifyToken } = require("../middlewares");
 
@@ -30,5 +31,9 @@ router
 router
   .route("/remove-product")
   .post(asyncHandler(verifyToken), asyncHandler(removeProductFromCart));
+
+router
+  .route("/checkout")
+  .post(asyncHandler(verifyToken), asyncHandler(createOrder));
 
 module.exports = router;
