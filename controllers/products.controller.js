@@ -1,8 +1,8 @@
 const { Product } = require("../models/product.model");
-const products = require("../data/products");
+const data = require("../data/products");
 
 exports.seedDatabase = async (req, res) => {
-  const products = await Product.create(products);
+  const products = await Product.create(data);
 
   res.json({ success: true, products });
 };
