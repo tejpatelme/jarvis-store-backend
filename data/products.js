@@ -165,15 +165,37 @@ const products = [
     by: "Estefanía Montaña",
   },
   {
-    name: "Printable wireframe template",
+    name: "UI Elements for Sketch",
     description:
-      "Free printable templates for your mobile sketching. Start creating your app with a clean mind and representation of a screen structure. There are 12 devices in the pack, for both iPhone and Android, so you can display on multiple devices.",
-    category: "Wireframe",
-    software: "None",
+      "This kit contains minimal and clean UI design that is compatible with Sketch.",
+    category: "UI Kits",
+    software: "Sketch",
     imageURL:
-      "https://s3.us-west-1.wasabisys.com/uistore/assets/images/printables-free-template-for-figma-thumb.jpg",
-    price: 6000,
-    by: "Craftwork",
+      "https://assets.uigarage.net/content/uploads/2020/06/ui-elements-for-sketch-thumb-768x576.jpg",
+    price: 10000,
+    by: "Leoh Nguyen",
+  },
+  {
+    name: "Push Notification UI",
+    description:
+      "This kit contains push notification components that are compatible with Figma.",
+    category: "UI Kits",
+    software: "Figma",
+    imageURL:
+      "https://assets.uigarage.net/content/uploads/2020/06/push-notification-free-ui-kit-for-figma-thumb-768x576.jpg",
+    price: 9000,
+    by: "Lee Munroe",
+  },
+  {
+    name: "Responsive eCommerce UI Kit",
+    description:
+      "Designed for both web and mobile, this UI kit contains simple but elegant web design. This kit is compatible with Adobe XD.",
+    category: "UI Kits",
+    software: "Adobe XD",
+    imageURL:
+      "https://assets.uigarage.net/content/uploads/2019/10/ecommerce-ui-kit-for-adobe-xd-thumb-768x576.jpg",
+    price: 9000,
+    by: "ICEO",
   },
 ];
 
